@@ -22,10 +22,10 @@ export function Home({ onCreateRoom, onJoinRoom }: HomeProps) {
             </div>
             <div className="space-y-3">
               <h1 className="text-5xl font-bold text-black tracking-tight">
-                VoteIt
+                Decidr
               </h1>
               <p className="text-slate-600 text-xl max-w-lg mx-auto font-medium">
-                Yes or no, we decide together
+                Skip the debate. Decide together.
               </p>
             </div>
           </div>
