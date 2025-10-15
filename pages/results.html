@@ -120,7 +120,7 @@
                     <i data-lucide="${results.winner === 'YES' ? 'thumbs-up' : 'thumbs-down'}" class="h-8 w-8 text-white"></i>
                 `;
                 winnerText.innerHTML = `
-                    <p class="winner-text mt-4">The majority has decided</p>
+                    <p class="winner-text" style="margin-top: 1rem;">The majority has decided</p>
                 `;
             } else {
                 winnerIcon.className = 'status-icon primary animate-scale-in';
@@ -128,7 +128,7 @@
                     <i data-lucide="bar-chart-3" class="h-8 w-8 text-white"></i>
                 `;
                 winnerText.innerHTML = `
-                    <p class="winner-text mt-4">Equal votes on both sides</p>
+                    <p class="winner-text" style="margin-top: 1rem;">Equal votes on both sides</p>
                 `;
             }
 
