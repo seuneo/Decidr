@@ -355,7 +355,7 @@ function generateQRCode(data, size = 300) {
 
 // Room link generation
 function generateRoomLink(roomId) {
-    return `${window.location.origin}/join.html?room=${roomId}`;
+    return `${window.location.origin}/pages/voting.html?room=${roomId}`;
 }
 
 // URL parameter helpers
