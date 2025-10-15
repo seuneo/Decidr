@@ -54,12 +54,22 @@ class VotingApp {
 
     // Navigation
     navigateTo(page) {
-        window.location.href = `${page}.html`;
+        // Check if we're already in a subdirectory (pages folder)
+        if (window.location.pathname.includes('/pages/')) {
+            window.location.href = `${page}.html`;
+        } else {
+            window.location.href = `pages/${page}.html`;
+        }
     }
 
     goHome() {
         this.clearState();
-        this.navigateTo('index');
+        // Check if we're in a subdirectory (pages folder)
+        if (window.location.pathname.includes('/pages/')) {
+            window.location.href = '../index.html';
+        } else {
+            window.location.href = 'index.html';
+        }
     }
 
     // Room Management

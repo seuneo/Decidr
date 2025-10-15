@@ -6,7 +6,7 @@
     <title>Vote - Decidr</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <script>
         tailwind.config = {
             theme: {
@@ -111,7 +111,7 @@
         </div>
     </div>
 
-    <script src="scripts.js"></script>
+    <script src="../scripts.js"></script>
     <script>
         function castVote(vote) {
             if (app.castVote(vote)) {
@@ -137,10 +137,18 @@
 
             // Show/hide host controls
             const hostControls = document.getElementById('host-controls');
+            const endPollHint = document.getElementById('end-poll-hint');
             if (app.userRole === 'host') {
                 hostControls.classList.remove('hidden');
                 const endPollBtn = document.getElementById('end-poll-btn');
                 endPollBtn.disabled = totalVotes === 0;
+                
+                // Hide hint message when there are votes
+                if (totalVotes > 0) {
+                    endPollHint.style.display = 'none';
+                } else {
+                    endPollHint.style.display = 'block';
+                }
             } else {
                 hostControls.classList.add('hidden');
             }
