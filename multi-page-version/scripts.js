@@ -19,6 +19,9 @@ class VotingApp {
         
         // Start any necessary background processes
         this.startBackgroundProcesses();
+        
+        // Initialize Lucide icons
+        this.initializeLucideIcons();
     }
 
     // State Management
@@ -202,6 +205,11 @@ class VotingApp {
         }
     }
 
+    initializeLucideIcons() {
+        // Initialize Lucide icons when the app starts
+        initializeLucideIcons();
+    }
+
     // UI Updates
     updateVotingUI() {
         if (!this.room) return;
@@ -292,6 +300,42 @@ function animateScaleIn(element) {
         element.style.transform = 'scale(1)';
         element.style.opacity = '1';
     }, 100);
+}
+
+// Lucide Icons initialization
+function initializeLucideIcons() {
+    // Check if Lucide is available
+    if (typeof lucide !== 'undefined') {
+        // Initialize all Lucide icons on the page
+        lucide.createIcons();
+        
+        // Re-initialize icons when new content is added dynamically
+        const observer = new MutationObserver((mutations) => {
+            let shouldReinitialize = false;
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                    // Check if any added nodes contain Lucide icons
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            if (node.querySelector && node.querySelector('[data-lucide]')) {
+                                shouldReinitialize = true;
+                            }
+                        }
+                    });
+                }
+            });
+            
+            if (shouldReinitialize) {
+                lucide.createIcons();
+            }
+        });
+        
+        // Start observing the document for changes
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
 }
 
 // QR Code generation

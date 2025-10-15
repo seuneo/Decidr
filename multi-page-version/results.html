@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results - Decidr</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <link rel="stylesheet" href="styles.css">
     <script>
         tailwind.config = {
@@ -29,12 +29,12 @@
         <div class="flex items-center justify-between p-4 bg-background">
             <div class="flex items-center">
                 <button class="bg-transparent border-none text-inherit cursor-pointer p-2 rounded-lg transition-colors duration-200 hover:bg-gray-200" onclick="goHome()">
-                    <span class="material-icons">home</span>
+                    <i data-lucide="home" class="h-4 w-4"></i>
                 </button>
                 <h1 class="ml-2 font-semibold">Results</h1>
             </div>
             <div class="flex items-center space-x-2 text-sm text-gray-500">
-                <span class="material-icons">group</span>
+                <i data-lucide="users" class="h-4 w-4"></i>
                 <span id="results-participants">3 joined</span>
             </div>
         </div>
@@ -60,7 +60,7 @@
                 <!-- Results Card -->
                 <div class="bg-white border-2 border-secondary rounded-lg p-6">
                     <div class="flex items-center justify-center gap-3 mb-4">
-                        <span class="material-icons text-xl text-slate-600">bar_chart</span>
+                        <i data-lucide="bar-chart-3" class="h-5 w-5 text-slate-600"></i>
                         <h4 class="font-semibold text-black">Results</h4>
                     </div>
                     
@@ -75,10 +75,10 @@
                     </div>
                     <div class="flex items-center justify-center space-x-2">
                         <button class="border-2 rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer w-10 h-10 flex items-center justify-center bg-primary border-secondary text-white shadow-[0_2px_0_#3D405B]" onclick="shareResults()" title="Share Results">
-                            <span class="material-icons">share</span>
+                            <i data-lucide="share-2" class="h-4 w-4"></i>
                         </button>
                         <button class="border-2 rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer w-10 h-10 flex items-center justify-center bg-primary border-secondary text-white shadow-[0_2px_0_#3D405B]" onclick="goHome()" title="Go to Home">
-                            <span class="material-icons">home</span>
+                            <i data-lucide="home" class="h-4 w-4"></i>
                         </button>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
             if (results.winner !== 'TIE') {
                 winnerIcon.className = `status-icon ${results.winner === 'YES' ? 'success' : 'danger'} animate-scale-in`;
                 winnerIcon.innerHTML = `
-                    <span class="material-icons text-3xl text-white">${results.winner === 'YES' ? 'thumb_up' : 'thumb_down'}</span>
+                    <i data-lucide="${results.winner === 'YES' ? 'thumbs-up' : 'thumbs-down'}" class="h-8 w-8 text-white"></i>
                 `;
                 winnerText.innerHTML = `
                     <h3 class="winner-title">${results.winner} WINS!</h3>
@@ -126,7 +126,7 @@
             } else {
                 winnerIcon.className = 'status-icon primary animate-scale-in';
                 winnerIcon.innerHTML = `
-                    <span class="material-icons text-3xl text-white">bar_chart</span>
+                    <i data-lucide="bar-chart-3" class="h-8 w-8 text-white"></i>
                 `;
                 winnerText.innerHTML = `
                     <h3 class="winner-title">TIE</h3>
@@ -142,7 +142,7 @@
                         <div class="results-item">
                             <div class="flex justify-between items-center">
                                 <div class="vote-label text-success">
-                                    <span class="material-icons text-base">thumb_up</span>
+                                    <i data-lucide="thumbs-up" class="h-4 w-4"></i>
                                     <span>YES (${results.upVotes} votes)</span>
                                 </div>
                                 <span class="vote-count">${results.yesPercentage}%</span>
@@ -154,7 +154,7 @@
                         <div class="results-item">
                             <div class="flex justify-between items-center">
                                 <div class="vote-label text-danger">
-                                    <span class="material-icons text-base">thumb_down</span>
+                                    <i data-lucide="thumbs-down" class="h-4 w-4"></i>
                                     <span>NO (${results.downVotes} votes)</span>
                                 </div>
                                 <span class="vote-count">${results.noPercentage}%</span>
@@ -169,7 +169,7 @@
                 resultsContent.innerHTML = `
                     <div class="text-center py-8">
                         <div class="status-icon primary mb-4">
-                            <span class="material-icons text-3xl text-white">bar_chart</span>
+                            <i data-lucide="bar-chart-3" class="h-8 w-8 text-white"></i>
                         </div>
                         <h4 class="text-lg font-semibold text-black mb-2">No Votes Yet</h4>
                         <p class="text-sm text-slate-600">

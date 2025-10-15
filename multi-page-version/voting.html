@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vote - Decidr</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <link rel="stylesheet" href="styles.css">
     <script>
         tailwind.config = {
@@ -29,12 +29,12 @@
         <div class="flex items-center justify-between p-4 bg-background">
             <div class="flex items-center">
                 <button class="bg-transparent border-none text-inherit cursor-pointer p-2 rounded-lg transition-colors duration-200 hover:bg-gray-200" onclick="goHome()">
-                    <span class="material-icons">home</span>
+                    <i data-lucide="home" class="h-4 w-4"></i>
                 </button>
                 <h1 class="ml-2 font-semibold">Vote</h1>
             </div>
             <div class="flex items-center space-x-2 text-sm text-gray-500">
-                <span class="material-icons">group</span>
+                <i data-lucide="users" class="h-4 w-4"></i>
                 <span id="voting-participants">3 joined</span>
             </div>
         </div>
@@ -51,7 +51,7 @@
                 <div class="text-center">
                     <div class="flex items-center justify-center space-x-6 text-sm text-slate-600">
                         <div class="flex items-center space-x-2">
-                            <span class="material-icons">check_circle</span>
+                            <i data-lucide="check-circle" class="h-4 w-4"></i>
                             <span id="votes-count">0 voted</span>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                 <div id="vote-status" class="hidden">
                     <div class="text-center space-y-4">
                         <div class="w-16 h-16 rounded-3xl flex items-center justify-center mx-auto shadow-lg bg-success">
-                            <span class="material-icons text-3xl text-white">check_circle</span>
+                            <i data-lucide="check-circle" class="h-8 w-8 text-white"></i>
                         </div>
                         <div class="space-y-3">
                             <h3 class="text-2xl font-semibold text-black">Vote Confirmed!</h3>
@@ -83,12 +83,12 @@
                     <div class="max-w-md mx-auto">
                         <div class="grid grid-cols-2 gap-4">
                             <button class="flex-col space-y-3 border-2 rounded-2xl transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_0_#3D405B] hover:scale-105 flex items-center justify-center h-44 bg-success border-secondary text-white" onclick="castVote('up')" id="vote-up-btn">
-                                <span class="material-icons text-5xl">thumb_up</span>
+                                <i data-lucide="thumbs-up" class="h-12 w-12"></i>
                                 <span class="text-lg font-bold">YES</span>
                             </button>
                             
                             <button class="flex-col space-y-3 border-2 rounded-2xl transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_0_#3D405B] hover:scale-105 flex items-center justify-center h-44 bg-danger border-secondary text-white" onclick="castVote('down')" id="vote-down-btn">
-                                <span class="material-icons text-5xl">thumb_down</span>
+                                <i data-lucide="thumbs-down" class="h-12 w-12"></i>
                                 <span class="text-lg font-bold">NO</span>
                             </button>
                         </div>
@@ -99,7 +99,7 @@
                 <div id="host-controls" class="hidden">
                     <div class="max-w-md mx-auto">
                         <button class="w-full border-2 py-6 text-lg font-bold rounded-2xl transition-all duration-300 uppercase tracking-wide disabled:bg-primary/30 disabled:cursor-not-allowed cursor-pointer mb-4 bg-primary border-secondary text-white shadow-[0_4px_0_#3D405B] flex items-center justify-center gap-2" onclick="endPoll()" id="end-poll-btn">
-                            <span class="material-icons">stop</span>
+                            <i data-lucide="stop-circle" class="h-5 w-5"></i>
                             End Vote
                         </button>
                         <p class="text-center text-sm text-slate-600" id="end-poll-hint">

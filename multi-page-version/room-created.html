@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vote Ready - Decidr</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <link rel="stylesheet" href="styles.css">
     <script>
         tailwind.config = {
@@ -29,12 +29,12 @@
         <div class="flex items-center justify-between p-4 bg-background">
             <div class="flex items-center">
                 <button class="bg-transparent border-none text-inherit cursor-pointer p-2 rounded-lg transition-colors duration-200 hover:bg-gray-200" onclick="goHome()">
-                    <span class="material-icons">home</span>
+                    <i data-lucide="home" class="h-4 w-4"></i>
                 </button>
                 <h1 class="ml-2 font-semibold">Vote Ready</h1>
             </div>
             <div class="flex items-center space-x-2 text-sm text-gray-500">
-                <span class="material-icons">group</span>
+                <i data-lucide="users" class="h-4 w-4"></i>
                 <span id="participants-count">1 joined</span>
             </div>
         </div>
@@ -65,11 +65,11 @@
                     
                     <div class="grid grid-cols-2 gap-2">
                         <button class="border-2 cursor-pointer transition-all duration-300 border-secondary text-secondary bg-background hover:bg-gray-200 rounded-lg py-2 px-4 text-sm flex items-center justify-center gap-1" onclick="copyRoomCode()">
-                            <span class="material-icons text-base">content_copy</span>
+                            <i data-lucide="copy" class="h-4 w-4"></i>
                             Copy Code
                         </button>
                         <button class="border-2 cursor-pointer transition-all duration-300 border-secondary text-secondary bg-background hover:bg-gray-200 rounded-lg py-2 px-4 text-sm flex items-center justify-center gap-1" onclick="copyRoomLink()">
-                            <span class="material-icons text-base">content_copy</span>
+                            <i data-lucide="copy" class="h-4 w-4"></i>
                             Copy Link
                         </button>
                     </div>
@@ -78,7 +78,7 @@
                 <!-- Start Button -->
                 <div class="max-w-md mx-auto">
                     <button class="w-full border-2 py-6 text-lg font-bold rounded-2xl transition-all duration-300 uppercase tracking-wide disabled:bg-primary/30 disabled:cursor-not-allowed cursor-pointer hover:scale-105 hover:shadow-lg bg-primary border-secondary text-white shadow-[0_4px_0_#3D405B] flex items-center justify-center gap-2" onclick="startVoting()" id="start-voting-btn">
-                        <span class="material-icons">play_arrow</span>
+                        <i data-lucide="play" class="h-5 w-5"></i>
                         Start Voting
                     </button>
                 </div>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waiting Room - Decidr</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <link rel="stylesheet" href="styles.css">
     <script>
         tailwind.config = {
@@ -29,12 +29,12 @@
         <div class="flex items-center justify-between p-4 bg-background">
             <div class="flex items-center">
                 <button class="bg-transparent border-none text-inherit cursor-pointer p-2 rounded-lg transition-colors duration-200 hover:bg-gray-200" onclick="goHome()">
-                    <span class="material-icons">home</span>
+                    <i data-lucide="home" class="h-4 w-4"></i>
                 </button>
                 <h1 class="ml-2 font-semibold">Waiting Room</h1>
             </div>
             <div class="flex items-center space-x-2 text-sm text-gray-500">
-                <span class="material-icons">group</span>
+                <i data-lucide="users" class="h-4 w-4"></i>
                 <span id="waiting-participants">3 joined</span>
             </div>
         </div>
@@ -50,7 +50,7 @@
                 <!-- Status Indicator -->
                 <div class="text-center space-y-3">
                     <div class="w-16 h-16 rounded-3xl flex items-center justify-center mx-auto shadow-lg bg-primary">
-                        <span class="material-icons text-3xl text-white">schedule</span>
+                        <i data-lucide="clock" class="h-8 w-8 text-white"></i>
                     </div>
                     
                     <div class="space-y-2">
