@@ -209,6 +209,10 @@ class VotingApp {
                     // Update UI if on voting page
                     if (window.location.pathname.includes('voting.html')) {
                         this.updateVotingUI();
+                        // Also call the page's updateVotingUI function if it exists
+                        if (typeof updateVotingUI === 'function') {
+                            updateVotingUI();
+                        }
                     }
                 }
             }, 3000);
