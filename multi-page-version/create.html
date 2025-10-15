@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Vote - Decidr</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#E07A5F',
+                        'secondary': '#3D405B',
+                        'background': '#F4F1DE',
+                        'success': '#10B981',
+                        'danger': '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background">
+        <div class="min-h-screen flex flex-col bg-background">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 bg-background">
+                <div class="flex items-center">
+                    <button class="bg-transparent border-none text-inherit cursor-pointer p-2 rounded-lg transition-colors duration-200 hover:bg-gray-200" onclick="goHome()">
+                        <span class="material-icons">home</span>
+                    </button>
+                    <h1 class="ml-2 font-semibold">Create New Vote</h1>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 flex items-center justify-center p-4">
+                <div class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full space-y-4">
+                <div class="text-center space-y-2 md:space-y-3">
+                    <div class="w-20 h-20 rounded-3xl flex items-center justify-center mx-auto shadow-lg bg-primary">
+                        <div class="flex items-center space-x-1">
+                            <span class="material-icons-outlined text-2xl text-white transform -rotate-12">thumb_up</span>
+                            <span class="material-icons-outlined text-2xl text-white transform rotate-12">thumb_down</span>
+                        </div>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-black tracking-tight">What's your question?</h2>
+                    <p class="text-slate-600 text-sm md:text-base max-w-md mx-auto">Enter a yes or no question. You'll be able to share it once created.</p>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <div class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                        <div class="relative flex-1">
+                            <input 
+                                type="text" 
+                                id="question-input" 
+                                class="w-full p-4 border-2 border-secondary rounded-2xl text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors bg-white h-12 md:h-14" 
+                                placeholder="e.g., Should we order pizza for lunch?"
+                                onkeypress="handleQuestionKeyPress(event)"
+                            />
+                        </div>
+                        
+                        <button 
+                            class="border-2 py-4 md:py-6 px-4 md:px-6 text-sm md:text-lg font-bold rounded-2xl transition-all duration-300 uppercase tracking-wide disabled:bg-primary/30 disabled:cursor-not-allowed focus:ring-2 focus:ring-primary/30 focus:outline-none cursor-pointer bg-primary border-secondary text-white shadow-[0_4px_0_#3D405B]" 
+                            onclick="createRoom()" 
+                            id="create-btn" 
+                            disabled
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+    <script>
+        function handleQuestionKeyPress(event) {
+            if (event.key === 'Enter') {
+                createRoom();
+            }
+        }
+
+        function createRoom() {
+            const question = document.getElementById('question-input').value.trim();
+            if (!validateQuestion(question)) {
+                showToast('Please enter a valid question', 'error');
+                return;
+            }
+
+            const room = app.createRoom(question);
+            showToast('Room created successfully!');
+            
+            // Navigate to room created page with room data
+            const params = new URLSearchParams({
+                room: JSON.stringify(room)
+            });
+            window.location.href = `room-created.html?${params.toString()}`;
+        }
+
+        // Enable create button when question is entered
+        document.addEventListener('DOMContentLoaded', function() {
+            const questionInput = document.getElementById('question-input');
+            const createBtn = document.getElementById('create-btn');
+            
+            if (questionInput && createBtn) {
+                questionInput.addEventListener('input', function() {
+                    createBtn.disabled = !validateQuestion(this.value);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

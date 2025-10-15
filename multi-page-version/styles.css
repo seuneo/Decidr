@@ -1,0 +1,578 @@
+/* Custom styles that complement Tailwind CSS */
+
+/* Custom animations */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Custom utility classes */
+.animate-bounce-custom {
+    animation: bounce 1s infinite;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.animate-scale-in {
+    animation: scaleIn 1.2s ease-out;
+}
+
+/* Custom toast styles */
+.toast {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background-color: #10B981;
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 50;
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Custom loading dots */
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.loading-dots .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: #3D405B;
+    border-radius: 50%;
+    animation: bounce 1s infinite;
+}
+
+.loading-dots .dot:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.loading-dots .dot:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* Custom progress bar styles */
+.progress-bar {
+    width: 100%;
+    height: 0.75rem;
+    background-color: #E5E7EB;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    transition: all 0.8s ease-out;
+}
+
+.progress-yes {
+    background-color: #10B981;
+}
+
+.progress-no {
+    background-color: #EF4444;
+}
+
+/* Custom status icon styles */
+.status-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.status-icon.clock {
+    background-color: #E07A5F;
+}
+
+.status-icon.success {
+    background-color: #10B981;
+}
+
+.status-icon.danger {
+    background-color: #EF4444;
+}
+
+.status-icon.primary {
+    background-color: #E07A5F;
+}
+
+/* Custom vote button styles */
+.vote-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border: 2px solid;
+    border-radius: 1rem;
+    transition: all 0.3s;
+    cursor: pointer;
+    opacity: 1;
+    box-shadow: 0 4px 0 #3D405B;
+    align-items: center;
+    justify-content: center;
+    height: 11rem;
+}
+
+.vote-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.vote-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Custom action button styles */
+.action-btn {
+    border: 2px solid;
+    border-radius: 50%;
+    transition: all 0.3s;
+    cursor: pointer;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Custom room code styles */
+.room-code {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    background-color: white;
+    border: 2px solid #3D405B;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    color: #1E293B;
+    text-align: center;
+}
+
+/* Custom copy button styles */
+.copy-btn {
+    border: 2px solid;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-color: #3D405B;
+    color: #3D405B;
+    background-color: #F4F1DE;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.copy-btn:hover {
+    background-color: #E5E7EB;
+}
+
+/* Custom QR code styles */
+.qr-code {
+    width: 12rem;
+    height: 12rem;
+    margin: 0 auto;
+    border-radius: 0.5rem;
+}
+
+/* Custom vote item styles */
+.vote-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.vote-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.vote-count {
+    font-size: 0.875rem;
+    color: #64748B;
+}
+
+/* Custom winner display styles */
+.winner-display {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.winner-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 0.5rem;
+}
+
+.winner-text {
+    color: #64748B;
+}
+
+/* Custom results header styles */
+.results-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.results-title {
+    font-weight: 600;
+    color: #000000;
+}
+
+/* Custom home button styles */
+.home-btn {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.home-btn:hover {
+    background-color: #E5E7EB;
+}
+
+/* Custom participants display styles */
+.participants {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #6B7280;
+}
+
+/* Custom form group styles */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .form-row {
+        flex-direction: row;
+    }
+}
+
+/* Custom screen styles */
+.screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #F4F1DE;
+}
+
+/* Custom content styles */
+.content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.content-inner {
+    max-width: 20rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .content-inner {
+        max-width: 28rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .content-inner {
+        max-width: 32rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .content-inner {
+        max-width: 36rem;
+    }
+}
+
+/* Custom header styles */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #F4F1DE;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-title {
+    margin-left: 0.5rem;
+    font-weight: 600;
+}
+
+/* Custom question styles */
+.question {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000000;
+    line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+    .question {
+        font-size: 1.875rem;
+    }
+}
+
+/* Custom button group styles */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+/* Custom vote buttons container */
+.vote-buttons {
+    max-width: 32rem;
+    margin: 0 auto;
+}
+
+.vote-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+/* Custom status display */
+.status-display {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.status-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.status-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+.status-description {
+    color: #64748B;
+    font-size: 0.875rem;
+}
+
+/* Custom vote status */
+.vote-status {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.vote-confirmed {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.vote-confirmed-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+.vote-confirmed-text {
+    color: #64748B;
+}
+
+.vote-confirmed-waiting {
+    font-size: 0.875rem;
+    color: #6B7280;
+}
+
+/* Custom host controls */
+.host-controls {
+    max-width: 32rem;
+    margin: 0 auto;
+}
+
+.host-controls-button {
+    width: 100%;
+    border: 2px solid;
+    padding: 1.5rem 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    border-radius: 1rem;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 1;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.host-controls-button:disabled {
+    background-color: rgba(224, 122, 95, 0.3);
+    cursor: not-allowed;
+}
+
+.host-controls-hint {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #64748B;
+}
+
+/* Custom results styles */
+.results-card {
+    background-color: white;
+    border: 2px solid #3D405B;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+
+.results-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.results-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.results-progress {
+    width: 100%;
+    background-color: #E5E7EB;
+    border-radius: 9999px;
+    height: 0.75rem;
+}
+
+.results-progress-fill {
+    height: 100%;
+    transition: all 0.8s ease-out;
+}
+
+/* Custom action buttons */
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Custom footer styles */
+.footer {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.footer-text {
+    font-size: 0.875rem;
+    color: #6B7280;
+}
+
+.footer-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+}

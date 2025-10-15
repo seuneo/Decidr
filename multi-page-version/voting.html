@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote - Decidr</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#E07A5F',
+                        'secondary': '#3D405B',
+                        'background': '#F4F1DE',
+                        'success': '#10B981',
+                        'danger': '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background">
+    <div class="min-h-screen flex flex-col bg-background">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-4 bg-background">
+            <div class="flex items-center">
+                <button class="bg-transparent border-none text-inherit cursor-pointer p-2 rounded-lg transition-colors duration-200 hover:bg-gray-200" onclick="goHome()">
+                    <span class="material-icons">home</span>
+                </button>
+                <h1 class="ml-2 font-semibold">Vote</h1>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+                <span class="material-icons">group</span>
+                <span id="voting-participants">3 joined</span>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 flex items-center justify-center p-4">
+            <div class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full space-y-4">
+                <!-- Question -->
+                <div class="text-center">
+                    <h2 class="text-2xl md:text-3xl font-bold text-black leading-relaxed" id="voting-question"></h2>
+                </div>
+
+                <!-- Vote Status -->
+                <div class="text-center">
+                    <div class="flex items-center justify-center space-x-6 text-sm text-slate-600">
+                        <div class="flex items-center space-x-2">
+                            <span class="material-icons">check_circle</span>
+                            <span id="votes-count">0 voted</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vote Status or Voting Buttons -->
+                <div id="vote-status" class="hidden">
+                    <div class="text-center space-y-4">
+                        <div class="w-16 h-16 rounded-3xl flex items-center justify-center mx-auto shadow-lg bg-success">
+                            <span class="material-icons text-3xl text-white">check_circle</span>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="text-2xl font-semibold text-black">Vote Confirmed!</h3>
+                            <p class="text-slate-600">
+                                You voted <span id="user-vote-text" class="font-semibold"></span>
+                            </p>
+                            <div class="text-sm text-slate-500">
+                                Waiting for results...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="voting-buttons" class="space-y-4">
+                    <div class="text-center text-slate-600 text-sm">
+                        Cast your vote:
+                    </div>
+                    
+                    <div class="max-w-md mx-auto">
+                        <div class="grid grid-cols-2 gap-4">
+                            <button class="flex-col space-y-3 border-2 rounded-2xl transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_0_#3D405B] hover:scale-105 flex items-center justify-center h-44 bg-success border-secondary text-white" onclick="castVote('up')" id="vote-up-btn">
+                                <span class="material-icons text-5xl">thumb_up</span>
+                                <span class="text-lg font-bold">YES</span>
+                            </button>
+                            
+                            <button class="flex-col space-y-3 border-2 rounded-2xl transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_0_#3D405B] hover:scale-105 flex items-center justify-center h-44 bg-danger border-secondary text-white" onclick="castVote('down')" id="vote-down-btn">
+                                <span class="material-icons text-5xl">thumb_down</span>
+                                <span class="text-lg font-bold">NO</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Host Controls -->
+                <div id="host-controls" class="hidden">
+                    <div class="max-w-md mx-auto">
+                        <button class="w-full border-2 py-6 text-lg font-bold rounded-2xl transition-all duration-300 uppercase tracking-wide disabled:bg-primary/30 disabled:cursor-not-allowed cursor-pointer mb-4 bg-primary border-secondary text-white shadow-[0_4px_0_#3D405B] flex items-center justify-center gap-2" onclick="endPoll()" id="end-poll-btn">
+                            <span class="material-icons">stop</span>
+                            End Vote
+                        </button>
+                        <p class="text-center text-sm text-slate-600" id="end-poll-hint">
+                            At least one vote required to end
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+    <script>
+        function castVote(vote) {
+            if (app.castVote(vote)) {
+                // Update UI
+                document.getElementById('voting-buttons').classList.add('hidden');
+                document.getElementById('vote-status').classList.remove('hidden');
+                document.getElementById('user-vote-text').textContent = vote === 'up' ? 'YES' : 'NO';
+                document.getElementById('user-vote-text').style.color = vote === 'up' ? '#10B981' : '#EF4444';
+                
+                updateVotingUI();
+            }
+        }
+
+        function endPoll() {
+            app.endPoll();
+        }
+
+        function updateVotingUI() {
+            if (!app.room) return;
+
+            const totalVotes = app.room.votes.up + app.room.votes.down;
+            document.getElementById('votes-count').textContent = `${totalVotes} voted`;
+
+            // Show/hide host controls
+            const hostControls = document.getElementById('host-controls');
+            if (app.userRole === 'host') {
+                hostControls.classList.remove('hidden');
+                const endPollBtn = document.getElementById('end-poll-btn');
+                endPollBtn.disabled = totalVotes === 0;
+            } else {
+                hostControls.classList.add('hidden');
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!app.room) {
+                showToast('No room found', 'error');
+                goHome();
+                return;
+            }
+
+            // Update UI
+            document.getElementById('voting-question').textContent = app.room.question;
+            document.getElementById('voting-participants').textContent = `${app.room.participants} joined`;
+            
+            updateVotingUI();
+
+            // Check if user has already voted
+            if (app.userVote) {
+                document.getElementById('voting-buttons').classList.add('hidden');
+                document.getElementById('vote-status').classList.remove('hidden');
+                document.getElementById('user-vote-text').textContent = app.userVote === 'up' ? 'YES' : 'NO';
+                document.getElementById('user-vote-text').style.color = app.userVote === 'up' ? '#10B981' : '#EF4444';
+            }
+        });
+    </script>
+</body>
+</html>

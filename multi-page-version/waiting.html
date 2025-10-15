@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting Room - Decidr</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#E07A5F',
+                        'secondary': '#3D405B',
+                        'background': '#F4F1DE',
+                        'success': '#10B981',
+                        'danger': '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background">
+    <div class="min-h-screen flex flex-col bg-background">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-4 bg-background">
+            <div class="flex items-center">
+                <button class="bg-transparent border-none text-inherit cursor-pointer p-2 rounded-lg transition-colors duration-200 hover:bg-gray-200" onclick="goHome()">
+                    <span class="material-icons">home</span>
+                </button>
+                <h1 class="ml-2 font-semibold">Waiting Room</h1>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+                <span class="material-icons">group</span>
+                <span id="waiting-participants">3 joined</span>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 flex items-center justify-center p-4">
+            <div class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full space-y-4">
+                <!-- Question Display -->
+                <div class="text-center">
+                    <h2 class="text-2xl md:text-3xl font-bold text-black leading-relaxed" id="waiting-question"></h2>
+                </div>
+
+                <!-- Status Indicator -->
+                <div class="text-center space-y-3">
+                    <div class="w-16 h-16 rounded-3xl flex items-center justify-center mx-auto shadow-lg bg-primary">
+                        <span class="material-icons text-3xl text-white">schedule</span>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <h3 class="text-xl font-semibold text-black">Waiting for Host</h3>
+                        <p class="text-slate-600 text-sm">The vote will start when the host begins.</p>
+                    </div>
+                </div>
+
+                <!-- Loading Animation -->
+                <div class="flex justify-center space-x-2">
+                    <div class="w-2 h-2 bg-secondary rounded-full animate-bounce"></div>
+                    <div class="w-2 h-2 bg-secondary rounded-full animate-bounce" style="animation-delay: 0.15s"></div>
+                    <div class="w-2 h-2 bg-secondary rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+    <script>
+        let checkInterval = null;
+
+        function checkRoomStatus() {
+            if (app.room && app.room.isActive) {
+                clearInterval(checkInterval);
+                window.location.href = 'voting.html';
+            }
+        }
+
+        function simulateParticipantJoin() {
+            if (app.room) {
+                app.room.participants++;
+                app.saveState();
+                document.getElementById('waiting-participants').textContent = `${app.room.participants} joined`;
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!app.room) {
+                showToast('No room found', 'error');
+                goHome();
+                return;
+            }
+
+            // Update UI
+            document.getElementById('waiting-question').textContent = app.room.question;
+            document.getElementById('waiting-participants').textContent = `${app.room.participants} joined`;
+
+            // Simulate participant count increase
+            setTimeout(simulateParticipantJoin, 1000);
+
+            // Auto-start voting after 3 seconds for demo purposes
+            setTimeout(() => {
+                app.startVoting();
+                window.location.href = 'voting.html';
+            }, 3000);
+
+            // Check room status periodically
+            checkInterval = setInterval(checkRoomStatus, 1000);
+        });
+
+        // Clean up interval when leaving page
+        window.addEventListener('beforeunload', function() {
+            if (checkInterval) {
+                clearInterval(checkInterval);
+            }
+        });
+    </script>
+</body>
+</html>

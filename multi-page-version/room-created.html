@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Ready - Decidr</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#E07A5F',
+                        'secondary': '#3D405B',
+                        'background': '#F4F1DE',
+                        'success': '#10B981',
+                        'danger': '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background">
+    <div class="min-h-screen flex flex-col bg-background">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-4 bg-background">
+            <div class="flex items-center">
+                <button class="bg-transparent border-none text-inherit cursor-pointer p-2 rounded-lg transition-colors duration-200 hover:bg-gray-200" onclick="goHome()">
+                    <span class="material-icons">home</span>
+                </button>
+                <h1 class="ml-2 font-semibold">Vote Ready</h1>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+                <span class="material-icons">group</span>
+                <span id="participants-count">1 joined</span>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 flex items-center justify-center p-4">
+            <div class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full space-y-4">
+                <!-- Question Display -->
+                <div class="text-center">
+                    <h2 class="text-2xl md:text-3xl font-bold text-black leading-relaxed" id="room-question"></h2>
+                </div>
+
+                <!-- Share Instructions -->
+                <div class="text-center">
+                    <p class="text-sm text-slate-600">Share QR or room code to join vote</p>
+                </div>
+
+                <!-- QR Code -->
+                <div class="text-center space-y-3">
+                    <img id="qr-code" class="w-48 h-48 mx-auto rounded-lg" alt="QR code for room" />
+                </div>
+
+                <!-- Room Code -->
+                <div class="max-w-md mx-auto space-y-4">
+                    <div class="text-center">
+                        <div class="text-sm font-medium tracking-wider bg-white border-2 border-secondary rounded-lg py-2 text-slate-800" id="room-code-display"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-2">
+                        <button class="border-2 cursor-pointer transition-all duration-300 border-secondary text-secondary bg-background hover:bg-gray-200 rounded-lg py-2 px-4 text-sm flex items-center justify-center gap-1" onclick="copyRoomCode()">
+                            <span class="material-icons text-base">content_copy</span>
+                            Copy Code
+                        </button>
+                        <button class="border-2 cursor-pointer transition-all duration-300 border-secondary text-secondary bg-background hover:bg-gray-200 rounded-lg py-2 px-4 text-sm flex items-center justify-center gap-1" onclick="copyRoomLink()">
+                            <span class="material-icons text-base">content_copy</span>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Start Button -->
+                <div class="max-w-md mx-auto">
+                    <button class="w-full border-2 py-6 text-lg font-bold rounded-2xl transition-all duration-300 uppercase tracking-wide disabled:bg-primary/30 disabled:cursor-not-allowed cursor-pointer hover:scale-105 hover:shadow-lg bg-primary border-secondary text-white shadow-[0_4px_0_#3D405B] flex items-center justify-center gap-2" onclick="startVoting()" id="start-voting-btn">
+                        <span class="material-icons">play_arrow</span>
+                        Start Voting
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+    <script>
+        let room = null;
+
+        function copyRoomCode() {
+            if (room) {
+                copyToClipboard(room.id);
+            }
+        }
+
+        function copyRoomLink() {
+            if (room) {
+                const roomLink = generateRoomLink(room.id);
+                copyToClipboard(roomLink);
+            }
+        }
+
+        function startVoting() {
+            if (room) {
+                app.startVoting();
+                window.location.href = 'voting.html';
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get room data from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const roomData = urlParams.get('room');
+            
+            if (roomData) {
+                room = JSON.parse(roomData);
+                app.room = room;
+                app.userRole = 'host';
+                app.saveState();
+            } else {
+                // Try to load from app state
+                room = app.room;
+            }
+
+            if (!room) {
+                showToast('No room data found', 'error');
+                goHome();
+                return;
+            }
+
+            // Update UI
+            document.getElementById('room-question').textContent = room.question;
+            document.getElementById('room-code-display').textContent = room.id;
+            document.getElementById('qr-code').src = generateQRCode(generateRoomLink(room.id));
+            document.getElementById('participants-count').textContent = `${room.participants} joined`;
+        });
+    </script>
+</body>
+</html>
