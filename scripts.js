@@ -78,7 +78,7 @@ class VotingApp {
         this.room = {
             id: roomId,
             question: question,
-            participants: 1,
+            participants: 25,
             votes: { up: 0, down: 0 },
             isActive: false,
             hasVoted: false
@@ -115,13 +115,15 @@ class VotingApp {
         
         this.isVoting = true;
         
+        // Update vote count immediately
+        this.userVote = vote;
+        this.room.votes[vote]++;
+        this.room.hasVoted = true;
+        this.saveState();
+        
         // Simulate vote processing
         setTimeout(() => {
-            this.userVote = vote;
-            this.room.votes[vote]++;
-            this.room.hasVoted = true;
             this.isVoting = false;
-            this.saveState();
             
             // Auto-transition to results after 2 seconds for participants
             if (this.userRole === 'participant') {
@@ -201,17 +203,21 @@ class VotingApp {
         // Auto-simulate other participants voting for demo purposes
         if (this.room && this.userRole === 'host') {
             setInterval(() => {
-                if (this.room && !this.room.hasVoted) {
-                    const randomVote = Math.random() > 0.6 ? 'up' : 'down';
-                    this.room.votes[randomVote]++;
-                    this.saveState();
-                    
-                    // Update UI if on voting page
-                    if (window.location.pathname.includes('voting.html')) {
-                        this.updateVotingUI();
-                        // Also call the page's updateVotingUI function if it exists
-                        if (typeof updateVotingUI === 'function') {
-                            updateVotingUI();
+                if (this.room) {
+                    const totalVotes = this.room.votes.up + this.room.votes.down;
+                    // Stop simulation when we reach 25 votes
+                    if (totalVotes < 25) {
+                        const randomVote = Math.random() > 0.6 ? 'up' : 'down';
+                        this.room.votes[randomVote]++;
+                        this.saveState();
+                        
+                        // Update UI if on voting page
+                        if (window.location.pathname.includes('voting.html')) {
+                            this.updateVotingUI();
+                            // Also call the page's updateVotingUI function if it exists
+                            if (typeof updateVotingUI === 'function') {
+                                updateVotingUI();
+                            }
                         }
                     }
                 }

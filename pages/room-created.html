@@ -35,7 +35,7 @@
             </div>
             <div class="flex items-center space-x-2 text-sm text-gray-500">
                 <i data-lucide="users" class="h-4 w-4"></i>
-                <span id="participants-count">1 joined</span>
+                <span id="participants-count">25 joined</span>
             </div>
         </div>
 
@@ -137,6 +137,18 @@
             document.getElementById('room-code-display').textContent = room.id;
             document.getElementById('qr-code').src = generateQRCode(generateRoomLink(room.id));
             document.getElementById('participants-count').textContent = `${room.participants} joined`;
+            
+            // Simulate people joining gradually
+            let currentParticipants = 1;
+            const maxParticipants = 25;
+            const joinInterval = setInterval(() => {
+                if (currentParticipants < maxParticipants) {
+                    currentParticipants++;
+                    document.getElementById('participants-count').textContent = `${currentParticipants} joined`;
+                } else {
+                    clearInterval(joinInterval);
+                }
+            }, 2000); // Add one person every 2 seconds
         });
     </script>
 </body>
