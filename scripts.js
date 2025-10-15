@@ -92,7 +92,7 @@ class VotingApp {
         // Simulate finding a room
         this.room = {
             id: roomCode,
-            question: "Should we have pizza for lunch tomorrow?",
+            question: "Approve the new design mockup?",
             participants: 3,
             votes: { up: 0, down: 0 },
             isActive: false,

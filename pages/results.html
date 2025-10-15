@@ -115,7 +115,7 @@
             const winnerText = document.getElementById('winner-text');
             
             if (results.winner !== 'TIE') {
-                winnerIcon.className = `status-icon ${results.winner === 'YES' ? 'success' : 'danger'} animate-scale-in`;
+                winnerIcon.className = `status-icon ${results.winner === 'YES' ? 'success' : 'danger'}`;
                 winnerIcon.innerHTML = `
                     <i data-lucide="${results.winner === 'YES' ? 'thumbs-up' : 'thumbs-down'}" class="h-8 w-8 text-white"></i>
                 `;
@@ -123,7 +123,7 @@
                     <p class="winner-text" style="margin-top: 1rem;">The majority has decided</p>
                 `;
             } else {
-                winnerIcon.className = 'status-icon primary animate-scale-in';
+                winnerIcon.className = 'status-icon primary';
                 winnerIcon.innerHTML = `
                     <i data-lucide="bar-chart-3" class="h-8 w-8 text-white"></i>
                 `;
