@@ -120,7 +120,7 @@
                     <i data-lucide="${results.winner === 'YES' ? 'thumbs-up' : 'thumbs-down'}" class="h-8 w-8 text-white"></i>
                 `;
                 winnerText.innerHTML = `
-                    <h3 class="winner-title">${results.winner} WINS!</h3>
+                    <h3 class="winner-title">${results.winner}</h3>
                     <p class="winner-text">The majority has decided</p>
                 `;
             } else {
@@ -141,7 +141,7 @@
                     <div class="results-content">
                         <div class="results-item">
                             <div class="flex justify-between items-center">
-                                <div class="vote-label text-success">
+                                <div class="vote-label text-green-600">
                                     <i data-lucide="thumbs-up" class="h-4 w-4"></i>
                                     <span>YES (${results.upVotes} votes)</span>
                                 </div>
@@ -153,7 +153,7 @@
                         </div>
                         <div class="results-item">
                             <div class="flex justify-between items-center">
-                                <div class="vote-label text-danger">
+                                <div class="vote-label text-red-600">
                                     <i data-lucide="thumbs-down" class="h-4 w-4"></i>
                                     <span>NO (${results.downVotes} votes)</span>
                                 </div>
